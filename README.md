@@ -2,8 +2,6 @@
 
 Projet du cours **Vision par ordinateur** – Master Data & IA, année 2025–2026.
 Auteure : Khadija ABOUZAKY
-
-Chaque métrique est programmée « à la main » avec NumPy, puis **vérifiée avec scikit-learn** quand c'est possible.
 Le but : comprendre ce que mesure chaque chiffre, et surtout quand il peut tromper.
 
 ## Contenu du dépôt
