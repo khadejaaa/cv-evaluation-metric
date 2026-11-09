@@ -1,0 +1,8 @@
+numpy
+matplotlib
+scikit-learn
+jupyter
+# Optionnel : vérification du mAP avec l'implémentation de référence de type COCO
+# torch
+# torchmetrics
+# pycocotools
