@@ -29,8 +29,8 @@ Un seul chiffre peut mentir. Un modèle qui répond toujours « négatif » sur 
 
 ## Étiquettes utilisées dans le notebook
 
-- 🧪 **JOUET** : petites données synthétiques, construites pour vérifier les chiffres à la main
-- 🔬 **RÉEL** : un vrai modèle sur un vrai jeu de données (`digits` de scikit-learn)
+-  **JOUET** : petites données synthétiques, construites pour vérifier les chiffres à la main
+- **RÉEL** : un vrai modèle sur un vrai jeu de données (`digits` de scikit-learn)
 
 La détection et la segmentation n'ont pas de cellule « réelle » (il faudrait un réseau pré-entraîné). Les fonctions marchent avec n'importe quel modèle : voir la section « Brancher un vrai modèle ».
 
@@ -53,13 +53,13 @@ Fonctions programmées :
 - `binary_metrics(y, p)` : calcule VP, FP, FN, VN, exactitude, précision, rappel et F1
 - `auc_rank(y, s)` : calcule le ROC-AUC par comparaison des scores (sans scikit-learn)
 
-Cellule 🧪 JOUET (2 000 images, environ 5 % de positifs) :
+Cellule JOUET (2 000 images, environ 5 % de positifs) :
 - Les résultats sont comparés à scikit-learn avec des `assert` : tout coïncide
 - Résultat : exactitude 0,837 · précision 0,188 · rappel 0,780 · F1 0,303 · AUC 0,889
 - Piège du déséquilibre : le modèle « toujours négatif » a une exactitude de 0,955 mais un rappel et un F1 de 0
 - Graphiques : matrice de confusion, courbe ROC, comparaison exactitude / rappel / F1
 
-Cellule 🔬 RÉEL (régression logistique sur `digits`, 10 classes) :
+Cellule RÉEL (régression logistique sur `digits`, 10 classes) :
 - `classification_report` complet
 - Moyennes **macro** (simple sur les classes), **micro** (on cumule les comptes) et **weighted** (pondérée par le nombre d'exemples)
 - Résultat : F1 macro 0,972 · ROC-AUC macro (un contre tous) 0,999
@@ -84,7 +84,7 @@ Fonctions programmées :
 
 Tests de cohérence : détections parfaites donnent AP = 1, aucune détection donne AP = 0.
 
-Cellule 🧪 JOUET (3 images, 2 classes : bonne boîte, boîte approximative, mauvaise classe, doublon, fausse alarme) :
+Cellule JOUET (3 images, 2 classes : bonne boîte, boîte approximative, mauvaise classe, doublon, fausse alarme) :
 - À IoU 0,5 et seuil de score 0,5 : VP = 5, FP = 1, FN = 0, précision 0,83, rappel 1,00
 - AP50 = 1,00 · AP75 = 0,25 · AP50:95 = 0,43
 - Lecture : le critère souple (IoU 0,5) cache de mauvaises boîtes, que l'AP50:95 révèle
@@ -104,12 +104,12 @@ Fonctions programmées :
 - `seg_metrics(cm)` : précision pixel, IoU, mIoU, Dice et Dice moyen
 - `mask_iou(a, b)` : IoU entre deux masques booléens
 
-Cellule 🧪 JOUET sémantique (fond, disque, carré, prédiction décalée avec un peu de bruit) :
+Cellule JOUET sémantique (fond, disque, carré, prédiction décalée avec un peu de bruit) :
 - Précision pixel 0,927 · mIoU 0,763 · Dice moyen 0,861
 - L'identité Dice = 2·IoU / (1+IoU) est vérifiée par `assert`
 - Piège : une prédiction 100 % fond a une précision pixel de 0,796 mais un mIoU de 0,265
 
-Cellule 🧪 JOUET instance (Mask AP) :
+Cellule JOUET instance (Mask AP) :
 - Même mécanique que la détection, mais avec l'IoU calculé sur les masques
 - Deux objets qui se touchent sont fusionnés en un seul masque : IoU de 0,43 avec chaque objet, donc les deux sont ratés à IoU 0,5
 - Résultat : Mask AP50 = 0,51 · Mask AP50:95 = 0,33
@@ -134,11 +134,7 @@ Les fonctions s'utilisent telles quelles avec de vraies prédictions (par exempl
 - Détection : rapporter AP50, AP50:95 et mAP. Attention : un seuil d'IoU souple cache de mauvaises boîtes
 - Segmentation : rapporter mIoU et Dice, pas seulement la précision pixel (dominée par le fond)
 
-## Limites
 
-- Détection et segmentation : uniquement des données jouets, pas encore de vrai modèle entraîné
-- Petites différences possibles avec `torchmetrics` / COCO (gestion des égalités et de l'interpolation)
-- Le Mask AP exige de bons contours ; la qualité panoptique (PQ) couvrirait fusions et scissions, mais n'est pas implémentée ici
 
 ## Technologies
 
